@@ -1,6 +1,8 @@
 package com.wroblewskigk.mazebank.Views;
 
 import com.wroblewskigk.mazebank.Controllers.Client.ClientController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -10,10 +12,17 @@ import java.io.IOException;
 
 public class ViewFactory {
     // Client Views
+    private final StringProperty clientSelectedMenuItem;
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
 
-    public ViewFactory() {}
+    public ViewFactory() {
+        this.clientSelectedMenuItem = new SimpleStringProperty("");
+    }
+
+    public StringProperty getClientSelectedMenuItem() {
+        return clientSelectedMenuItem;
+    }
 
     public AnchorPane getDashboardView() {
         // Prevents multiple loads of the interface when the user changes between menus
@@ -52,7 +61,7 @@ public class ViewFactory {
     }
 
     public void showLoginWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Loin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         createStage(loader);
     }
 

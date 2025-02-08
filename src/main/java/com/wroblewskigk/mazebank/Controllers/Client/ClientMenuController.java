@@ -1,5 +1,6 @@
 package com.wroblewskigk.mazebank.Controllers.Client;
 
+import com.wroblewskigk.mazebank.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -15,5 +16,20 @@ public class ClientMenuController implements Initializable {
     public Button logout_btn;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        addListeners();
+    }
+
+    private void addListeners() {
+        dashboard_btn.setOnAction(event -> onDashboard());
+        transaction_btn.setOnAction(event -> onTransactions());
+    }
+
+    private void onTransactions() {
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set("Transactions");
+    }
+
+    private void onDashboard() {
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set("Dashboard");
+    }
 }
