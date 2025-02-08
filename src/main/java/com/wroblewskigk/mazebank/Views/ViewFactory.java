@@ -48,4 +48,8 @@ public class ViewFactory {
         loader.setController(clientController);
         createStage(loader);
     }
+
+    public void closeStage(Stage stage) {
+        stage.close();
+    }
 }
