@@ -6,9 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ViewFactory {
     // Client Views
     private AnchorPane dashboardView;
+    private AnchorPane transactionsView;
 
     public ViewFactory() {}
 
@@ -18,10 +21,21 @@ public class ViewFactory {
             try {
                 dashboardView = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return dashboardView;
+    }
+
+    public AnchorPane getTransactionsView() {
+        if (transactionsView == null) {
+            try {
+                transactionsView = new FXMLLoader(getClass().getResource("/Fxml/Client/Transactions.fxml")).load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return transactionsView;
     }
 
     private void createStage(FXMLLoader loader) {
@@ -29,7 +43,7 @@ public class ViewFactory {
         try {
             scene = new Scene(loader.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -38,7 +52,7 @@ public class ViewFactory {
     }
 
     public void showLoginWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Loin.fxml"));
         createStage(loader);
     }
 
