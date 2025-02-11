@@ -1,5 +1,6 @@
 package com.wroblewskigk.mazebank.Views;
 
+import com.wroblewskigk.mazebank.Controllers.Admin.AdminController;
 import com.wroblewskigk.mazebank.Controllers.Client.ClientController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -17,14 +18,35 @@ public class ViewFactory {
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
 
+    // Admin Views
+    private final StringProperty adminSelectedMenuItem;
+    private AnchorPane createClientView;
+
     public ViewFactory() {
         this.clientSelectedMenuItem = new SimpleStringProperty("");
+        this.adminSelectedMenuItem = new SimpleStringProperty("");
+    }
+
+    private void createStage(FXMLLoader loader) {
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Bank");
+        stage.show();
+    }
+
+    public void closeStage(Stage stage) {
+        stage.close();
     }
 
     /*
     * Client Views Section
     * */
-
     public StringProperty getClientSelectedMenuItem() {
         return clientSelectedMenuItem;
     }
@@ -63,19 +85,6 @@ public class ViewFactory {
         return accountsView;
     }
 
-    private void createStage(FXMLLoader loader) {
-        Scene scene = null;
-        try {
-            scene = new Scene(loader.load());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Bank");
-        stage.show();
-    }
-
     public void showLoginWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         createStage(loader);
@@ -88,7 +97,28 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    public void closeStage(Stage stage) {
-        stage.close();
+    /*
+     * Admin Views Section
+     * */
+    public StringProperty getAdminSelectedMenuItem() {
+        return adminSelectedMenuItem;
+    }
+
+    public AnchorPane getCreateClientView() {
+        if (createClientView == null) {
+            try {
+                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/CreateClient.fxml")).load();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return createClientView;
+    }
+
+    public void showAdminWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
+        AdminController adminController = new AdminController();
+        loader.setController(adminController);
+        createStage(loader);
     }
 }
