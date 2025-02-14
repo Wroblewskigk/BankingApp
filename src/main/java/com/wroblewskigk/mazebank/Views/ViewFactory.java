@@ -2,8 +2,8 @@ package com.wroblewskigk.mazebank.Views;
 
 import com.wroblewskigk.mazebank.Controllers.Admin.AdminController;
 import com.wroblewskigk.mazebank.Controllers.Client.ClientController;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,23 +12,33 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewFactory {
+    private AccountType loginAccountType;
     // Client Views
-    private final StringProperty clientSelectedMenuItem;
+    private final ObjectProperty<ClientMenuOptions> clientSelectedMenuItem;
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
 
     // Admin Views
-    private final StringProperty adminSelectedMenuItem;
+    private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private AnchorPane createClientView;
 
     public ViewFactory() {
-        this.clientSelectedMenuItem = new SimpleStringProperty("");
-        this.adminSelectedMenuItem = new SimpleStringProperty("");
+        this.loginAccountType = AccountType.CLIENT;
+        this.clientSelectedMenuItem = new SimpleObjectProperty<>();
+        this.adminSelectedMenuItem = new SimpleObjectProperty<>();
+    }
+
+    public AccountType getLoginAccountType() {
+        return loginAccountType;
+    }
+
+    public void setLoginAccountType(AccountType loginAccountType) {
+        this.loginAccountType = loginAccountType;
     }
 
     private void createStage(FXMLLoader loader) {
-        Scene scene = null;
+        Scene scene;
         try {
             scene = new Scene(loader.load());
         } catch (Exception e) {
@@ -47,7 +57,7 @@ public class ViewFactory {
     /*
     * Client Views Section
     * */
-    public StringProperty getClientSelectedMenuItem() {
+    public ObjectProperty<ClientMenuOptions> getClientSelectedMenuItem() {
         return clientSelectedMenuItem;
     }
 
@@ -100,7 +110,7 @@ public class ViewFactory {
     /*
      * Admin Views Section
      * */
-    public StringProperty getAdminSelectedMenuItem() {
+    public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuItem() {
         return adminSelectedMenuItem;
     }
 

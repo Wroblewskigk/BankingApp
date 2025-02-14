@@ -1,6 +1,7 @@
 package com.wroblewskigk.mazebank.Controllers.Admin;
 
 import com.wroblewskigk.mazebank.Models.Model;
+import com.wroblewskigk.mazebank.Views.AdminMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -23,6 +24,6 @@ public class AdminMenuController implements Initializable {
     }
 
     private void onCreateClient() {
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set("CreateClient");
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE_CLIENT);
     }
 }
