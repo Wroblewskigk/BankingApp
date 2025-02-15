@@ -14,6 +14,7 @@ module com.wroblewskigk.mazebank {
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires java.desktop;
 
     opens com.wroblewskigk.mazebank to javafx.fxml;
     exports com.wroblewskigk.mazebank;
